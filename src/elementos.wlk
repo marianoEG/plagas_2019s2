@@ -29,4 +29,5 @@ class Barrio{
 	method esCopado(){
 		return elementos.count({e=>e.esBueno()}) > elementos.count({e=>not e.esBueno()})
 	}
+	method sufrirAtaque(plaga){elementos.forEach({e=>e.sufrirAtaque(plaga)})}
 }
