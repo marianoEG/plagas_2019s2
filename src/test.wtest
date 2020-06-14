@@ -1,0 +1,92 @@
+import elementos.*
+import plagas.*
+describe "test"{
+	const casaMala = new Hogar(nivelMugre=10,nivelConfort=4)
+	const casaBuena = new Hogar(nivelMugre=5,nivelConfort=16)
+	const huertaBuena = new Huerta(capacidadProduccion=15,nivelHuerta=5)
+	const huertaMala = new Huerta(capacidadProduccion=10,nivelHuerta=12)
+	const mascotaBuena= new Mascota(nivelSalud=400)
+	const mascotaMala= new Mascota(nivelSalud=200)
+	const cucaracha = new Cucaracha(poblacion=20,pesoPromedio=10)
+	const pulga = new Pulga(poblacion=11)
+	const garrapata = new Garrapata(poblacion=12)
+	const mosquito = new Mosquito(poblacion=12)
+	const cucaracha1 = new Cucaracha(poblacion=20,pesoPromedio=5)
+	const pulga1 = new Pulga(poblacion=5)
+	const garrapata1 = new Garrapata(poblacion=5)
+	const mosquito1 = new Mosquito(poblacion=11)
+	
+	test "Elementos buenos"{
+		assert.that(casaBuena.esBueno())
+		assert.notThat(casaMala.esBueno())
+		assert.that(huertaBuena.esBueno())
+		assert.notThat(huertaMala.esBueno())
+		assert.that(mascotaBuena.esBueno())
+		assert.notThat(mascotaMala.esBueno())
+	}
+	
+	test "plagas transmisoras"{
+		assert.that(cucaracha.puedeTransmitir())
+		assert.that(pulga.puedeTransmitir())
+		assert.that(garrapata.puedeTransmitir())
+		assert.that(mosquito.puedeTransmitir())
+		assert.notThat(cucaracha1.puedeTransmitir())
+		assert.notThat(pulga1.puedeTransmitir())
+		assert.notThat(garrapata1.puedeTransmitir())
+		assert.notThat(mosquito1.puedeTransmitir())
+	}
+	
+	test "damage"{
+		assert.equals(cucaracha.nivelDeDanio(),10)
+		assert.equals(pulga.nivelDeDanio(),22)
+		assert.equals(garrapata.nivelDeDanio(),24)
+		assert.equals(mosquito.nivelDeDanio(),12)
+	}
+	
+	test "ataques de cucaracha"{
+		casaBuena.sufrirAtaque(cucaracha)
+		huertaBuena.sufrirAtaque(cucaracha)
+		mascotaBuena.sufrirAtaque(cucaracha)
+		assert.equals(casaBuena.nivelMugre(),15)
+		assert.equals(huertaBuena.capacidadProduccion(),4)
+		assert.equals(mascotaBuena.nivelSalud(),390)
+	}
+	test "ataques de pulga"{
+		casaBuena.sufrirAtaque(pulga)
+		huertaBuena.sufrirAtaque(pulga)
+		mascotaBuena.sufrirAtaque(pulga)
+		assert.equals(casaBuena.nivelMugre(),27)
+		assert.equals(huertaBuena.capacidadProduccion(),2.8)
+		assert.equals(mascotaBuena.nivelSalud(),378)
+	}
+	test "ataques de garrapata"{
+		casaBuena.sufrirAtaque(garrapata)
+		huertaBuena.sufrirAtaque(garrapata)
+		mascotaBuena.sufrirAtaque(garrapata)
+		assert.equals(casaBuena.nivelMugre(),29)
+		assert.equals(huertaBuena.capacidadProduccion(),2.6)
+		assert.equals(mascotaBuena.nivelSalud(),376)
+	}
+	test "ataques de mosquito"{
+		casaBuena.sufrirAtaque(mosquito)
+		huertaBuena.sufrirAtaque(mosquito)
+		mascotaBuena.sufrirAtaque(mosquito)
+		assert.equals(casaBuena.nivelMugre(),17)
+		assert.equals(huertaBuena.capacidadProduccion(),3.8)
+		assert.equals(mascotaBuena.nivelSalud(),388)
+	}
+	test "efectos de ataque"{
+		cucaracha.atacar(casaBuena)
+		pulga.atacar(casaBuena)
+		garrapata.atacar(casaBuena)
+		mosquito.atacar(casaBuena)
+		assert.equals(cucaracha.poblacion(),22)
+		assert.equals(cucaracha.pesoPromedio(),12)
+		assert.equals(pulga.poblacion(),12.1)
+		assert.equals(garrapata.poblacion(),14.4)
+		assert.equals(mosquito.poblacion(),13.2)
+		
+	}
+		
+	
+}
