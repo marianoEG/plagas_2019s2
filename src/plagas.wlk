@@ -4,7 +4,7 @@ class Plaga {
 	method nivelDeDanio(){return poblacion}
 	method puedeTransmitir(){return poblacion > 10}
 	method efectoAtaque(){poblacion = poblacion * 1.1}
-	method atacar(elemento){self.efectoAtaque() elemento.sufrirAtaque(self)}
+	method atacar(elemento){ elemento.sufrirAtaque(self) self.efectoAtaque() }
 }
 class Cucaracha inherits Plaga{
 	var property pesoPromedio
